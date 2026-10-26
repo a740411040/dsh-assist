@@ -1,5 +1,7 @@
 <div align="center">
 
+<img src="assets/fish-daughter.png" width="320" alt="Rice-loving whale-girl mascot / 爱吃白饭的大肥鱼女儿" />
+
 # dsh-assist
 
 **Portable personas. Persistent memory. Opt-in proactive chat.**

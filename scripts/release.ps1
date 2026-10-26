@@ -24,7 +24,7 @@ if ($LASTEXITCODE -ne 0) { throw 'npm pack failed' }
 $stage = Join-Path $root ('.work\release-' + [guid]::NewGuid().ToString('N'))
 $project = Join-Path $stage 'dsh-assist'
 New-Item -ItemType Directory -Path $project -Force | Out-Null
-$names = @('src','packs','schemas','examples','docs','test','scripts','package.json','cordis.patch.yml','README.md','SKILL.md','LICENSE','NOTICE','CHANGELOG.md','.gitignore','.gitattributes')
+$names = @('src','packs','schemas','examples','assets','docs','test','scripts','package.json','cordis.patch.yml','README.md','SKILL.md','LICENSE','NOTICE','CHANGELOG.md','.gitignore','.gitattributes')
 foreach ($name in $names) {
   $source = Join-Path $root $name
   if (-not (Test-Path -LiteralPath $source)) { throw "Missing release input: $name" }

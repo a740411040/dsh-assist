@@ -25,6 +25,7 @@
     "packs/",
     "schemas/",
     "examples/",
+    "assets/",
     "docs/",
     "SKILL.md",
     "cordis.patch.yml",
