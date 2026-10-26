@@ -1,6 +1,6 @@
 # 验证记录
 
-版本：dsh-assist 0.2.0。日期：2026-10-27。
+版本：dsh-assist 0.2.1。日期：2026-10-27。
 环境：Windows、PowerShell 7.6.5、Node.js 22.19.0、npm 10.9.3。
 
 ## 已运行

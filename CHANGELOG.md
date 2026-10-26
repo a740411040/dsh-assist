@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.2.1 — 2026-10-27
+
+- Bundle the rice-loving whale-girl illustration and generation notes in both TGZ and source ZIP.
+- Refresh the English-first bilingual README and versioned installation/download links.
+- No runtime behavior changes; existing persona data and memories are preserved.
+
+- 安装包与源码包加入爱吃白饭的鲸鱼娘插画及生成说明。
+- 更新英文在上的双语 README 与版本化下载安装链接。
+- 无运行时行为变更；保留已有角色与记忆，主动聊天仍需明确启用。
+
 ## 0.2.0 — 2026-10-27
 
 - 默认示范改为爱吃白饭的大肥鱼女儿；新存储首次启用使用此角色，保留已有用户数据。

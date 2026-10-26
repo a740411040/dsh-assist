@@ -3,21 +3,21 @@
 适用：**DeepSeek Harness 官方桌面应用 0.2.1-rc.3**。dsh-assist 是独立社区插件，
 不是普通 DeepSeek 网页聊天的浏览器扩展，也不是一个新的桌面客户端。
 
-当前为 v0.2.0 预发布版：离线与模拟宿主测试通过，尚未完成真实桌面端及模型验收。
+当前为 v0.2.1 预发布版：离线与模拟宿主测试通过，尚未完成真实桌面端及模型验收。
 其他 Harness 版本不要跳过兼容性检查；请先等待适配或在独立测试环境验证。
 
 ## 1. 下载安装包
 
-打开 [v0.2.0 Release](https://github.com/a740411040/dsh-assist/releases/tag/v0.2.0)，
-在 Assets 下载 `dsh-assist-0.2.0.tgz`。这个文件直接安装，**不需要解压 TGZ**。
-可同时下载 `dsh-assist-0.2.0-manifest.json`，用 PowerShell 核对 TGZ 的 SHA-256：
+打开 [v0.2.1 Release](https://github.com/a740411040/dsh-assist/releases/tag/v0.2.1)，
+在 Assets 下载 `dsh-assist-0.2.1.tgz`。这个文件直接安装，**不需要解压 TGZ**。
+可同时下载 `dsh-assist-0.2.1-manifest.json`，用 PowerShell 核对 TGZ 的 SHA-256：
 
 ```powershell
-Get-FileHash -Algorithm SHA256 -LiteralPath "$env:USERPROFILE\Downloads\dsh-assist-0.2.0.tgz"
+Get-FileHash -Algorithm SHA256 -LiteralPath "$env:USERPROFILE\Downloads\dsh-assist-0.2.1.tgz"
 ```
 
 结果应与清单中同名文件的 sha256 一致。下载位置不是 Downloads 时请修改路径。
-`dsh-assist-0.2.0-source.zip` 是完整开发源码；不需要开发时只下载 TGZ 即可。
+`dsh-assist-0.2.1-source.zip` 是完整开发源码；不需要开发时只下载 TGZ 即可。
 
 ## 2. 准备桌面端自己的 dsh 命令
 
@@ -38,7 +38,7 @@ dsh --version
 ## 3. 安装并重新打开应用
 
 ```powershell
-$package = Join-Path $env:USERPROFILE 'Downloads\dsh-assist-0.2.0.tgz'
+$package = Join-Path $env:USERPROFILE 'Downloads\dsh-assist-0.2.1.tgz'
 dsh plugin --profile desktop add $package
 dsh plugin --profile desktop list
 ```
