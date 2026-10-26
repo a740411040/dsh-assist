@@ -1,0 +1,150 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "dsh-assist package v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "format",
+    "version",
+    "private",
+    "role"
+  ],
+  "properties": {
+    "format": {
+      "const": "dsh-assist/package"
+    },
+    "version": {
+      "const": 1
+    },
+    "private": {
+      "type": "boolean"
+    },
+    "role": {
+      "$ref": "role.schema.json"
+    },
+    "memory": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "longTerm",
+        "shortTerm"
+      ],
+      "properties": {
+        "longTerm": {
+          "type": "array",
+          "maxItems": 200,
+          "items": {
+            "$ref": "#/$defs/entry"
+          }
+        },
+        "shortTerm": {
+          "type": "object",
+          "maxProperties": 200,
+          "propertyNames": {
+            "minLength": 1,
+            "maxLength": 256,
+            "not": {
+              "enum": [
+                "__proto__",
+                "constructor",
+                "prototype"
+              ]
+            }
+          },
+          "additionalProperties": {
+            "$ref": "#/$defs/checkpoint"
+          }
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "private": {
+            "const": true
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "memory"
+        ]
+      },
+      "else": {
+        "not": {
+          "required": [
+            "memory"
+          ]
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "entry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "text",
+        "kind",
+        "createdAt"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "maxLength": 80,
+          "pattern": "^[a-zA-Z0-9-]+$"
+        },
+        "text": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000,
+          "pattern": "\\S"
+        },
+        "kind": {
+          "enum": [
+            "fact",
+            "preference",
+            "decision",
+            "inference"
+          ]
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "checkpoint": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "summary",
+        "updatedAt",
+        "expiresAt"
+      ],
+      "properties": {
+        "summary": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 4000,
+          "pattern": "\\S"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "expiresAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    }
+  }
+}

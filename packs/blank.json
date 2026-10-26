@@ -1,0 +1,10 @@
+{
+  "format": "dsh-assist/role",
+  "version": 1,
+  "id": "my-companion",
+  "name": "我的伙伴",
+  "persona": "填写角色身份、兴趣、性格与稳定原则。",
+  "style": "填写说话风格、长度和称呼约定。",
+  "greeting": "你好。",
+  "memoryPolicy": "保存稳定偏好和重要约定；及时更新当前事项摘要；推断与事实分开。"
+}

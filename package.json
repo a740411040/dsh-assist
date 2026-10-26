@@ -1,0 +1,66 @@
+{
+  "name": "dsh-assist",
+  "version": "0.2.0",
+  "description": "Portable personas, private memory, and opt-in idle chat for DeepSeek Harness Desktop.",
+  "type": "module",
+  "license": "MIT",
+  "repository": { "type": "git", "url": "git+https://github.com/a740411040/dsh-assist.git" },
+  "homepage": "https://github.com/a740411040/dsh-assist#readme",
+  "bugs": { "url": "https://github.com/a740411040/dsh-assist/issues" },
+  "engines": {
+    "node": ">=20.18",
+    "dsh": "0.2.1-rc.3"
+  },
+  "main": "./src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./core": "./src/core.js",
+    "./adapter": "./src/adapter.js"
+  },
+  "bin": {
+    "dsh-assist": "./src/cli.js"
+  },
+  "files": [
+    "src/",
+    "packs/",
+    "schemas/",
+    "examples/",
+    "docs/",
+    "SKILL.md",
+    "cordis.patch.yml",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md",
+    "NOTICE"
+  ],
+  "scripts": {
+    "test": "node --test test/*.test.js",
+    "check": "node scripts/check.mjs",
+    "pack:check": "npm pack --dry-run --ignore-scripts --offline",
+    "release": "pwsh -NoProfile -File scripts/release.ps1"
+  },
+  "peerDependencies": {
+    "@deepseek-ai/dsh-tools": "0.2.1-rc.3"
+  },
+  "peerDependenciesMeta": {
+    "@deepseek-ai/dsh-tools": {
+      "optional": true
+    }
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "compatibility": {
+      "dsh": "0.2.1-rc.3",
+      "dshReleases": {
+        "0.2.1-rc.3": "compatible"
+      },
+      "node": ">=20.18",
+      "profiles": [
+        "desktop",
+        "web"
+      ]
+    }
+  }
+}

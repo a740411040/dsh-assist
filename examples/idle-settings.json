@@ -1,0 +1,7 @@
+{
+  "idleMinutes": 15,
+  "cooldownMinutes": 30,
+  "maxUnanswered": 2,
+  "quietStart": 23,
+  "quietEnd": 8
+}

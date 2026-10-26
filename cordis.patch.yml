@@ -1,0 +1,4 @@
+# Standard Harness bundle; installed through the host plugin manager.
+- insert:
+    - id: dsh-assist
+      name: 'dsh-assist'

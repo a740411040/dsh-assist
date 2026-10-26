@@ -1,0 +1,14 @@
+dsh-assist is an independent community project, not a DeepSeek product.
+Targets the official DeepSeek Harness Desktop plugin interfaces.
+API references consulted (2026-10-27):
+https://github.com/deepseek-ai/deepseek-harness/tree/master/packages/core/system-prompt
+https://github.com/deepseek-ai/deepseek-harness/tree/master/packages/core/tools
+https://github.com/deepseek-ai/deepseek-harness/blob/master/packages/core/agent/src/dispatch.ts
+https://github.com/deepseek-ai/deepseek-harness/blob/master/apps/desktop/README.md
+
+Related work researched:
+https://github.com/Scorp1o117/dsh-soul-md (MIT)
+https://github.com/penglai-doll/dsh-soul (MIT)
+https://github.com/aeonfun/soul.md (MIT)
+No source from those projects is vendored. This package uses an independent
+state format and does not migrate or modify their installed data.
