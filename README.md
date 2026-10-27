@@ -8,11 +8,11 @@
 
 A community plugin for **DeepSeek Harness Desktop**.
 
-[![Version](https://img.shields.io/badge/version-0.2.1--preview-f59e0b)](https://github.com/a740411040/dsh-assist/releases/tag/v0.2.1)
+[![Version](https://img.shields.io/badge/version-0.2.2--preview-f59e0b)](https://github.com/a740411040/dsh-assist/releases/tag/v0.2.2)
 [![License: MIT](https://img.shields.io/badge/license-MIT-2563eb)](LICENSE)
 [![Harness target](https://img.shields.io/badge/Harness-0.2.1--rc.3-475569)](docs/VERIFICATION.md)
 
-[English](#english) · [简体中文](#简体中文) · [Download](https://github.com/a740411040/dsh-assist/releases/tag/v0.2.1) · [Documentation](#documentation)
+[English](#english) · [简体中文](#简体中文) · [Download](https://github.com/a740411040/dsh-assist/releases/tag/v0.2.2) · [Documentation](#documentation)
 
 </div>
 
@@ -22,7 +22,7 @@ A community plugin for **DeepSeek Harness Desktop**.
 
 Turn a Harness conversation into a reusable AI companion: choose a persona, retain useful memories, and let it start a brief conversation after a period of inactivity.
 
-> **Preview release.** Targets Harness Desktop **0.2.1-rc.3**. Offline tests and simulated-host checks pass; real Desktop installation and model behavior remain unverified. This is an independent community project, not an official DeepSeek product.
+> **Preview release.** Targets Harness Desktop **0.2.1-rc.3**. Offline tests and Windows Desktop installation/loading checks pass; real-model proactive chat remains unverified. This is an independent community project, not an official DeepSeek product.
 
 ### What it does
 
@@ -46,13 +46,13 @@ This is an example of the persona's voice, not a fixed response. Fresh storage s
 
 ### Download
 
-Get the files from the [v0.2.1 release](https://github.com/a740411040/dsh-assist/releases/tag/v0.2.1).
+Get the files from the [v0.2.2 release](https://github.com/a740411040/dsh-assist/releases/tag/v0.2.2).
 
 | File | Use |
 | --- | --- |
-| [dsh-assist-0.2.1.tgz](https://github.com/a740411040/dsh-assist/releases/download/v0.2.1/dsh-assist-0.2.1.tgz) | Desktop plugin installer — do not extract |
-| [dsh-assist-0.2.1-source.zip](https://github.com/a740411040/dsh-assist/releases/download/v0.2.1/dsh-assist-0.2.1-source.zip) | Complete source for development |
-| [SHA-256 manifest](https://github.com/a740411040/dsh-assist/releases/download/v0.2.1/dsh-assist-0.2.1-manifest.json) | Verify downloaded artifacts |
+| [dsh-assist-0.2.2.tgz](https://github.com/a740411040/dsh-assist/releases/download/v0.2.2/dsh-assist-0.2.2.tgz) | Desktop plugin installer — do not extract |
+| [dsh-assist-0.2.2-source.zip](https://github.com/a740411040/dsh-assist/releases/download/v0.2.2/dsh-assist-0.2.2-source.zip) | Complete source for development |
+| [SHA-256 manifest](https://github.com/a740411040/dsh-assist/releases/download/v0.2.2/dsh-assist-0.2.2-manifest.json) | Verify downloaded artifacts |
 
 ### Installation
 
@@ -66,7 +66,7 @@ The commands below use **Windows PowerShell**. Desktop supplies its own runtime;
 Get-Command dsh
 dsh --version
 
-$package = Join-Path $env:USERPROFILE 'Downloads\dsh-assist-0.2.1.tgz'
+$package = Join-Path $env:USERPROFILE 'Downloads\dsh-assist-0.2.2.tgz'
 dsh plugin --profile desktop add $package
 dsh plugin --profile desktop list
 ```
@@ -122,7 +122,7 @@ This README is bilingual. The detailed guides are currently in Simplified Chines
 
 为 Harness 聊天加入可复用的人设、持续保存的记忆，以及无人回复时主动聊一句的能力。
 
-> **当前为预发布版。** 面向 Harness Desktop **0.2.1-rc.3**，已通过离线与模拟宿主验证，尚未完成真实桌面端和模型实测。本项目是独立社区插件，并非 DeepSeek 官方产品。
+> **当前为预发布版。** 面向 Harness Desktop **0.2.1-rc.3**，已通过离线验证和 Windows 桌面端安装、加载检查；真实模型主动聊天尚未实测。本项目是独立社区插件，并非 DeepSeek 官方产品。
 
 ### 功能概览
 
@@ -146,13 +146,13 @@ This README is bilingual. The detailed guides are currently in Simplified Chines
 
 ### 下载与安装
 
-在 [v0.2.1 发布页](https://github.com/a740411040/dsh-assist/releases/tag/v0.2.1) 下载：
+在 [v0.2.2 发布页](https://github.com/a740411040/dsh-assist/releases/tag/v0.2.2) 下载：
 
 | 文件 | 用途 |
 | --- | --- |
-| `dsh-assist-0.2.1.tgz` | 普通用户安装插件，无需解压 |
-| `dsh-assist-0.2.1-source.zip` | 完整开发源码 |
-| `dsh-assist-0.2.1-manifest.json` | SHA-256 校验清单 |
+| `dsh-assist-0.2.2.tgz` | 普通用户安装插件，无需解压 |
+| `dsh-assist-0.2.2-source.zip` | 完整开发源码 |
+| `dsh-assist-0.2.2-manifest.json` | SHA-256 校验清单 |
 
 以下为 **Windows PowerShell** 步骤。桌面端自带运行环境，安装插件无需另行安装系统 Node.js/npm。
 
@@ -164,7 +164,7 @@ This README is bilingual. The detailed guides are currently in Simplified Chines
 Get-Command dsh
 dsh --version
 
-$package = Join-Path $env:USERPROFILE 'Downloads\dsh-assist-0.2.1.tgz'
+$package = Join-Path $env:USERPROFILE 'Downloads\dsh-assist-0.2.2.tgz'
 dsh plugin --profile desktop add $package
 dsh plugin --profile desktop list
 ```

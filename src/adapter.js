@@ -111,7 +111,7 @@ export function attach(ctx, { home, defaultPack }, defineTool) {
     return off;
   });
 
-  const string = (description, required = true) => ({ type: 'string', required, description });
+  const string = (description, required = true) => ({ type: 'string', ...(required ? { required: true } : {}), description });
   const tools = [
     {
       name: 'assist_list',
@@ -147,7 +147,7 @@ export function attach(ctx, { home, defaultPack }, defineTool) {
       description: 'Save a checkpoint summary for this session only.',
       parameters: {
         summary: string('Checkpoint summary, at most 4000 characters.'),
-        ttlHours: { type: 'number', required: false, description: 'Optional TTL from 1 to 720 hours.' }
+        ttlHours: { type: 'number', description: 'Optional TTL from 1 to 720 hours.' }
       },
       write: true,
       run: (id, args) => store.checkpoint(id, args.summary, args.ttlHours ?? 72)
@@ -157,7 +157,7 @@ export function attach(ctx, { home, defaultPack }, defineTool) {
       description: 'Search current-role long-term memory; an empty query returns recent entries.',
       parameters: {
         query: string('Unicode case-insensitive keyword query, or empty for recent entries.'),
-        limit: { type: 'number', required: false, description: 'Optional result limit from 1 to 20.' }
+        limit: { type: 'number', description: 'Optional result limit from 1 to 20.' }
       },
       run: (id, args) => store.recall(id, args.query, args.limit ?? 5)
     },

@@ -1,6 +1,6 @@
 {
   "name": "dsh-assist",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Portable personas, private memory, and opt-in idle chat for DeepSeek Harness Desktop.",
   "type": "module",
   "license": "MIT",
@@ -37,6 +37,7 @@
   "scripts": {
     "test": "node --test test/*.test.js",
     "check": "node scripts/check.mjs",
+    "check:sdk": "node scripts/check-sdk.mjs",
     "pack:check": "npm pack --dry-run --ignore-scripts --offline",
     "release": "pwsh -NoProfile -File scripts/release.ps1"
   },

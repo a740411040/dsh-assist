@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.2.2 — 2026-10-27
+
+- Fix Desktop plugin loading: omit `required` for optional tool arguments, as required by the real Harness SDK.
+- Add `npm run check:sdk -- <SDK entry file>` to compile all 11 tools with the installed SDK and exercise omitted optional arguments.
+- Verified installation and the running component on Windows Harness Desktop 0.2.1-rc.3. Real-model proactive chat remains unverified.
+
+- 修复实机加载异常：可选工具参数省略 `required`，不再传入 SDK 不接受的 `required: false`。
+- 新增真实 SDK 契约检查，覆盖 11 个工具与省略可选参数的调用。
+- 已验证 Windows 桌面端安装和组件运行；尚未验证真实模型的主动聊天行为。
+
 ## 0.2.1 — 2026-10-27
 
 - Bundle the rice-loving whale-girl illustration and generation notes in both TGZ and source ZIP.

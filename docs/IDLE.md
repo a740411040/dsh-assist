@@ -5,7 +5,7 @@ v0.2.0 增加了真实的宿主唤醒逻辑：插件计时，到期后向同一 
 
 ## 下载者如何启用
 
-按 [桌面端安装说明](DESKTOP.md)安装本项目或 v0.2.1 TGZ。
+按 [桌面端安装说明](DESKTOP.md)安装本项目或 v0.2.2 TGZ。
 只读取 SKILL.md、导入角色 JSON 或运行 CLI 不会启动主动聊天。
 
 在希望陪聊的会话发送：
@@ -74,7 +74,7 @@ stop 和插件卸载撤销将来的触发；已经提交给宿主的回合可能
 继续等待不应出现第二次。发一条真实消息，等回复后再次验证；
 最后调用 stop，确认不再触发。重启后 status 应报告未启用。
 
-当前交付没有在真实桌面端安装或调用模型；模拟通过不代表实机认证。
+已在 Windows 官方桌面端验证安装和组件运行；尚未调用真实模型验证主动聊天。
 
 接口来源：[Agent 公共接口](https://github.com/deepseek-ai/deepseek-harness/blob/master/packages/core/agent/README.md)、
 [事件与状态定义](https://github.com/deepseek-ai/deepseek-harness/blob/master/packages/core/agent/src/runtime-types.ts)、

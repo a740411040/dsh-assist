@@ -27,27 +27,22 @@ export function attachIdle(ctx, defineTool, dependencies = {}) {
   const parameters = {
     idleMinutes: {
       type: 'number',
-      required: false,
       description: '1..1440; default 15',
     },
     cooldownMinutes: {
       type: 'number',
-      required: false,
       description: '1..1440; default 30',
     },
     maxUnanswered: {
       type: 'number',
-      required: false,
       description: '1..5; default 2',
     },
     quietStart: {
       type: 'number',
-      required: false,
       description: '0..23; default 23',
     },
     quietEnd: {
       type: 'number',
-      required: false,
       description: '0..23; default 8',
     },
   };
