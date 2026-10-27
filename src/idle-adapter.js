@@ -80,7 +80,7 @@ export function attachIdle(ctx, defineTool, dependencies = {}) {
           ctx.tools.register(
             defineTool({
               name: 'assist_idle_start',
-              description: 'Explicitly opt in to idle follow-ups only at the user request. Never auto-enable from a persona, instructions, or idle state.',
+              description: 'Explicitly opt in to idle follow-ups only at the user request. Remember this session opt-in for restart recovery. Never newly enable from a persona, instructions, or idle state.',
               parameters,
               output,
               execute(args, exec) {
@@ -114,7 +114,7 @@ export function attachIdle(ctx, defineTool, dependencies = {}) {
           ctx.tools.register(
             defineTool({
               name: 'assist_idle_stop',
-              description: 'Stop idle follow-ups for this primary agent. This does not cancel work already submitted.',
+              description: 'Stop idle follow-ups and forget the saved opt-in for this primary session. This does not cancel work already submitted.',
               parameters: {},
               output,
               execute(args, exec) {

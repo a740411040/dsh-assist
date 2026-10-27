@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.3.0 — 2026-10-27
+
+- Remember each explicitly enabled idle-chat session and restore it when its live primary agent is loaded after restart.
+- Preserve options, unanswered quota and error pauses; wait again instead of sending missed messages.
+- Stop removes the saved opt-in. New sessions remain off. Consent storage is separate from persona memory.
+- Add persistence, recovery, stop, corruption and concurrency tests.
+
+- 记住明确启用的会话，重启后原主会话被加载时恢复；新会话不自动开。
+- 保留参数、未回应次数和错误暂停；重新等待，不补发离线消息。
+- stop 同时删除保存的启用状态，独立存储不改变原角色记忆格式。
+- 新增持久化、恢复、关闭、损坏文件和并发写入测试。
+
 ## 0.2.2 — 2026-10-27
 
 - Fix Desktop plugin loading: omit `required` for optional tool arguments, as required by the real Harness SDK.

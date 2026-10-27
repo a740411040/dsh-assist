@@ -25,12 +25,14 @@ export function validateIdleOptions(options = {}) {
 
 export function createIdleController({
   agents, now = () => performance.now(), wallNow = () => Date.now(),
-  setTimer = setInterval, clearTimer = clearInterval, randomId = randomUUID
+  setTimer = setInterval, clearTimer = clearInterval, randomId = randomUUID, persistence = null
 }) {
   if (typeof agents?.get !== 'function') throw new Error('Idle chat requires the host agents registry');
   const records = new Map();
   const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
   let timer = null, disposed = false, ticking = false, lastClock = null;
+  let pending = false, persistenceError = null;
+  const suppressed = new Set();
   const idOf = agent => typeof agent?.id === 'string' && agent.id ? agent.id : null;
   const isPrimary = agent => agent?.origin !== 'subagent' && agent?.session?.header?.origin !== 'subagent';
   function isLive(agent) {
@@ -58,21 +60,78 @@ export function createIdleController({
     if (records.get(record.agent.id) !== record) return;
     record.enabled = false;
     record.lastError = errorText(error);
+    try { save(record, { paused: true }); } catch (saveError) {
+      record.lastError += '; pause could not be saved; restart may resume: ' + errorText(saveError);
+    }
   }
   function clearIfEmpty() {
-    if (records.size === 0 && timer !== null) { clearTimer(timer); timer = null; }
+    if (records.size === 0 && !pending && timer !== null) { clearTimer(timer); timer = null; }
   }
   function drop(agent) {
     if (recordFor(agent)) records.delete(agent.id);
     clearIfEmpty();
   }
+  function save(record, changes = {}) {
+    if (!persistence || !record.saved) return;
+    record.saved = persistence.update(record.saved, {
+      unanswered: record.unanswered, paused: !record.enabled || Boolean(record.delivering), ...changes
+    });
+  }
+  function ensureTimer() {
+    if (timer !== null) return;
+    const created = setTimer(tick,15000);
+    try { created?.unref?.(); } catch (error) { clearTimer(created); throw error; }
+    timer = created;
+  }
+  function syncSaved(value) {
+    if (!persistence || disposed) return;
+    let saved;
+    try {
+      saved = persistence.load();
+      persistenceError = null;
+    } catch (error) {
+      persistenceError = errorText(error);
+      for (const record of records.values()) {
+        record.enabled = false; record.lastError = persistenceError;
+      }
+      return;
+    }
+    pending = saved.size > 0;
+    for (const record of [...records.values()]) {
+      const current = saved.get(record.agent.id);
+      if (!current || current.token !== record.saved?.token || !isLive(record.agent)) {
+        drop(record.agent);
+      } else if (current.revision !== record.saved.revision) {
+        record.enabled = false;
+        record.lastError = 'Idle consent changed elsewhere; this controller is paused';
+      }
+    }
+    for (const item of saved.values()) {
+      if (suppressed.has(item.id) || records.has(item.id)) continue;
+      const agent = agents.get(item.id);
+      if (!isLive(agent)) continue;
+      records.set(item.id, {
+        agent, config: item.config, enabled: !item.paused, unanswered: item.unanswered,
+        lastActivity: value, lastSent: value, saved: item, restored: true,
+        lastError: item.paused ? 'Saved error pause; explicitly start to retry' : null
+      });
+    }
+    if (pending) ensureTimer(); else clearIfEmpty();
+  }
   function due(record) {
     return Math.max(record.lastActivity + record.config.idleMinutes * 60000,
       record.lastSent === null ? 0 : record.lastSent + record.config.cooldownMinutes * 60000);
   }
+  function restoreFor(agent) {
+    if (!persistence || disposed || recordFor(agent) || suppressed.has(idOf(agent))) return;
+    try { syncSaved(clock()); } catch (error) { persistenceError = errorText(error); }
+  }
   function status(agent) {
+    restoreFor(agent);
     const record = recordFor(agent);
-    if (!record) return {enabled:false,reason:'not-started'};
+    if (!record) return persistenceError
+      ? {enabled:false,reason:'persistence-error',lastError:persistenceError}
+      : {enabled:false,reason:'not-started'};
     const pausedReason = !record.enabled ? 'error'
       : record.unanswered >= record.config.maxUnanswered ? 'unanswered-limit' : null;
     let remaining = null;
@@ -80,7 +139,8 @@ export function createIdleController({
       try { const value = now(); if (Number.isFinite(value) && value >= 0) remaining = Math.ceil(Math.max(0,due(record)-value)/1000); } catch {}
     }
     return {enabled:record.enabled,config:{...record.config},unanswered:record.unanswered,
-      pausedReason,lastError:record.lastError,secondsUntilDue:remaining,timeZone};
+      pausedReason,lastError:record.lastError,secondsUntilDue:remaining,timeZone,
+      ...(persistence ? {remembered:Boolean(record.saved),restored:Boolean(record.restored)} : {})};
   }
   function start(agent,options) {
     if (disposed) throw new Error('Idle controller is disposed');
@@ -88,22 +148,38 @@ export function createIdleController({
     if (!isLive(agent)) throw new Error('Idle chat requires an exact live primary agent');
     if (!records.has(agent.id) && records.size >= 200) throw new Error('Idle session capacity reached (200)');
     const value = clock();
-    if (timer === null) {
-      const created = setTimer(tick,15000);
-      try { created?.unref?.(); } catch (error) { clearTimer(created); throw error; }
-      timer = created;
-    }
-    records.set(agent.id,{agent,config,enabled:true,unanswered:0,lastActivity:value,lastSent:null,lastError:null});
+    ensureTimer();
+    let saved;
+    try { saved = persistence?.start(agent.id,config); }
+    catch (error) { clearIfEmpty(); throw error; }
+    if (saved) { pending = true; persistenceError = null; }
+    suppressed.delete(agent.id);
+    records.set(agent.id,{agent,config,enabled:true,unanswered:0,lastActivity:value,lastSent:null,lastError:null,saved,restored:false});
     return status(agent);
   }
-  function stop(agent) { drop(agent); return status(agent); }
+  function stop(agent) {
+    if (persistence) suppressed.add(agent.id);
+    drop(agent);
+    if (persistence) {
+      try { persistence.remove(agent.id); syncSaved(clock()); }
+      catch (error) {
+        throw new Error('Stopped for this run, but could not save stop: ' + errorText(error));
+      }
+    }
+    return status(agent);
+  }
   function humanInput({agent,message}) {
+    if (message?.source?.kind === 'user') restoreFor(agent);
     const record = recordFor(agent);
     if (!record?.enabled || message?.source?.kind !== 'user') return;
-    try { record.lastActivity = clock(); record.unanswered = 0; }
+    try {
+      record.lastActivity = clock();
+      if (record.unanswered !== 0) { record.unanswered = 0; save(record); }
+    }
     catch (error) { fail(record,error); }
   }
   function agentStatus({agent,status:next}) {
+    restoreFor(agent);
     const record = recordFor(agent);
     if (!record?.enabled || next !== 'idle' || agent.status !== 'idle') return;
     try { record.lastActivity = clock(); } catch (error) { fail(record,error); }
@@ -124,6 +200,8 @@ export function createIdleController({
         for (const record of records.values()) fail(record,error);
         return;
       }
+      syncSaved(value);
+      if (persistenceError) return;
       // Snapshot records: reentrant starts are considered only by a later tick.
       for (const record of [...records.values()]) {
         const {agent,config} = record;
@@ -143,7 +221,14 @@ export function createIdleController({
           });
           record.unanswered++;
           record.lastSent = value;
-          agent.followup(message);
+          // Reserve quota and pause durably until submission is confirmed.
+          record.delivering = true;
+          try {
+            save(record);
+            agent.followup(message);
+            record.delivering = false;
+            if (!disposed && records.get(agent.id) === record) save(record);
+          } finally { record.delivering = false; }
         } catch (error) { fail(record,error); }
       }
     } finally { ticking = false; }
@@ -152,6 +237,9 @@ export function createIdleController({
     disposed = true;
     if (timer !== null) { clearTimer(timer); timer = null; }
     records.clear();
+  }
+  if (persistence) {
+    try { syncSaved(clock()); } catch (error) { persistenceError = errorText(error); }
   }
   return {start,stop,status,humanInput,agentStatus,agentDisposed,tick,dispose};
 }

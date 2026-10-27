@@ -3,21 +3,21 @@
 适用：**DeepSeek Harness 官方桌面应用 0.2.1-rc.3**。dsh-assist 是独立社区插件，
 不是普通 DeepSeek 网页聊天的浏览器扩展，也不是一个新的桌面客户端。
 
-当前为 v0.2.2 预发布版：离线测试与 Windows 桌面端安装、加载检查通过；真实模型主动聊天尚未验收。
+当前为 v0.3.0 预发布版：离线测试与 Windows 桌面端安装、加载检查通过；真实模型主动聊天尚未验收。
 其他 Harness 版本不要跳过兼容性检查；请先等待适配或在独立测试环境验证。
 
 ## 1. 下载安装包
 
-打开 [v0.2.2 Release](https://github.com/a740411040/dsh-assist/releases/tag/v0.2.2)，
-在 Assets 下载 `dsh-assist-0.2.2.tgz`。这个文件直接安装，**不需要解压 TGZ**。
-可同时下载 `dsh-assist-0.2.2-manifest.json`，用 PowerShell 核对 TGZ 的 SHA-256：
+打开 [v0.3.0 Release](https://github.com/a740411040/dsh-assist/releases/tag/v0.3.0)，
+在 Assets 下载 `dsh-assist-0.3.0.tgz`。这个文件直接安装，**不需要解压 TGZ**。
+可同时下载 `dsh-assist-0.3.0-manifest.json`，用 PowerShell 核对 TGZ 的 SHA-256：
 
 ```powershell
-Get-FileHash -Algorithm SHA256 -LiteralPath "$env:USERPROFILE\Downloads\dsh-assist-0.2.2.tgz"
+Get-FileHash -Algorithm SHA256 -LiteralPath "$env:USERPROFILE\Downloads\dsh-assist-0.3.0.tgz"
 ```
 
 结果应与清单中同名文件的 sha256 一致。下载位置不是 Downloads 时请修改路径。
-`dsh-assist-0.2.2-source.zip` 是完整开发源码；不需要开发时只下载 TGZ 即可。
+`dsh-assist-0.3.0-source.zip` 是完整开发源码；不需要开发时只下载 TGZ 即可。
 
 ## 2. 准备桌面端自己的 dsh 命令
 
@@ -38,7 +38,7 @@ dsh --version
 ## 3. 安装并重新打开应用
 
 ```powershell
-$package = Join-Path $env:USERPROFILE 'Downloads\dsh-assist-0.2.2.tgz'
+$package = Join-Path $env:USERPROFILE 'Downloads\dsh-assist-0.3.0.tgz'
 dsh plugin --profile desktop add $package
 dsh plugin --profile desktop list
 ```
@@ -108,7 +108,7 @@ node .\src\cli.js default fat-fish-daughter
 
 默认后端本地时区、参数范围、停止的边界见 [主动聊天说明](IDLE.md)。
 触发会使用模型服务并产生正常用量。应用后端必须保持运行；
-重启、插件卸载或会话卸载后需要重新启用，记忆数据不会因此删除。
+首次开启后会记住当前会话；重启并加载原会话后自动恢复，重新等待完整空闲与冷却时间。新会话不自动开启，stop 会永久取消该会话的保存状态。
 
 ## 5. 一分钟实机验收
 
@@ -139,7 +139,7 @@ stop 不撤回已经提交的回合；终止当前生成用宿主停止按钮。
 | 模型只说已开启却不主动聊 | 让它实际调用 assist_idle_status；未启用则明确要求调用 start |
 | enabled=true 仍不触发 | 查看 pausedReason；核对安静时段/时区，是否忙碌、排队或达到无人回应上限 |
 | error 暂停 | 查看 lastError，修复宿主/模型问题后明确重新 start；不要无限重试 |
-| 重启后不主动聊 | 预期行为，需要重新启用；计时订阅不写入长期记忆 |
+| 重启后不主动聊 | 打开曾成功开启的原会话，用 status 检查 restored、暂停原因和剩余等待；旧 v0.2.x 升级后需首次启用一次 |
 | 记忆无法读写 | 不要删除 state.json 修复，先备份并查看 [存储恢复说明](DESIGN.md) |
 
 仍有问题可在 [Issues](https://github.com/a740411040/dsh-assist/issues) 提供版本、
@@ -154,7 +154,7 @@ dsh plugin --profile desktop remove dsh-assist
 ```
 
 重新打开应用后插件不再加载。卸载会撤销插件未来的计时触发，
-已有私人数据不自动删除，方便恢复。项目不提供删除私人数据的卸载脚本。
+已有私人数据和保存的启用状态不自动删除；不希望重装后恢复时先对相关会话调用 stop。项目不提供删除私人数据的卸载脚本。
 
 ## 官方接口来源
 

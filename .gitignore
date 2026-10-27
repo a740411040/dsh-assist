@@ -8,3 +8,7 @@ dist/
 state.json
 state.json.*
 *.private.json
+
+idle-consents.json
+idle-consents.lock
+.idle-*.tmp

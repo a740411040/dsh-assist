@@ -53,15 +53,15 @@
 
 ## 主动聊天运行时
 
-src/idle.js 只维护 live agent 的内存订阅，单个 unref 计时器每15秒检查；
-单调时钟控制等待与冷却，本地墙钟只判断安静时段。无存储格式迁移。
+src/idle.js 维护 live agent 订阅并每15秒发现已保存会话；src/idle-store.js 独立保存启用设置、计数与错误暂停。单个 unref 计时器每15秒检查；
+单调时钟控制等待与冷却，本地墙钟只判断安静时段。恢复时重等完整间隔，沿用未回应计数。原 state.json 无格式迁移；idle-consents.json 使用锁、原子替换、授权 token 与 revision 检查，派发前保存配额。
 消息携带独立 UUID 和 dsh-assist-idle 来源，通过原 agent.followup 提交。
 计时器在 agents.withoutInitiator 中创建，避免继承启用工具的 agent 归因。
 派发前复核 agent 对象身份、状态、输入队列和上限；先预留次数再调用，
 重入时不重复提交。旧调用失败不能禁用刚重新启用的新订阅。
 工具入口只允许当前 live 主会话；start 需要最近 user-role 消息来自真正用户，
 拒绝主动触发回合自己续订。是否用户明确要求启用还需模型遵从工具说明。
-卸载清理监听器/计时器，不取消已提交宿主工作。详细行为见 [IDLE.md](IDLE.md)。
+stop 删除保存的授权；卸载清理监听器/计时器但保留设置，不取消已提交宿主工作。详细行为见 [IDLE.md](IDLE.md)。
 
 ## 不自动做的事
 

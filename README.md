@@ -8,11 +8,11 @@
 
 A community plugin for **DeepSeek Harness Desktop**.
 
-[![Version](https://img.shields.io/badge/version-0.2.2--preview-f59e0b)](https://github.com/a740411040/dsh-assist/releases/tag/v0.2.2)
+[![Version](https://img.shields.io/badge/version-0.3.0--preview-f59e0b)](https://github.com/a740411040/dsh-assist/releases/tag/v0.3.0)
 [![License: MIT](https://img.shields.io/badge/license-MIT-2563eb)](LICENSE)
 [![Harness target](https://img.shields.io/badge/Harness-0.2.1--rc.3-475569)](docs/VERIFICATION.md)
 
-[English](#english) · [简体中文](#简体中文) · [Download](https://github.com/a740411040/dsh-assist/releases/tag/v0.2.2) · [Documentation](#documentation)
+[English](#english) · [简体中文](#简体中文) · [Download](https://github.com/a740411040/dsh-assist/releases/tag/v0.3.0) · [Documentation](#documentation)
 
 </div>
 
@@ -46,13 +46,13 @@ This is an example of the persona's voice, not a fixed response. Fresh storage s
 
 ### Download
 
-Get the files from the [v0.2.2 release](https://github.com/a740411040/dsh-assist/releases/tag/v0.2.2).
+Get the files from the [v0.3.0 release](https://github.com/a740411040/dsh-assist/releases/tag/v0.3.0).
 
 | File | Use |
 | --- | --- |
-| [dsh-assist-0.2.2.tgz](https://github.com/a740411040/dsh-assist/releases/download/v0.2.2/dsh-assist-0.2.2.tgz) | Desktop plugin installer — do not extract |
-| [dsh-assist-0.2.2-source.zip](https://github.com/a740411040/dsh-assist/releases/download/v0.2.2/dsh-assist-0.2.2-source.zip) | Complete source for development |
-| [SHA-256 manifest](https://github.com/a740411040/dsh-assist/releases/download/v0.2.2/dsh-assist-0.2.2-manifest.json) | Verify downloaded artifacts |
+| [dsh-assist-0.3.0.tgz](https://github.com/a740411040/dsh-assist/releases/download/v0.3.0/dsh-assist-0.3.0.tgz) | Desktop plugin installer — do not extract |
+| [dsh-assist-0.3.0-source.zip](https://github.com/a740411040/dsh-assist/releases/download/v0.3.0/dsh-assist-0.3.0-source.zip) | Complete source for development |
+| [SHA-256 manifest](https://github.com/a740411040/dsh-assist/releases/download/v0.3.0/dsh-assist-0.3.0-manifest.json) | Verify downloaded artifacts |
 
 ### Installation
 
@@ -66,7 +66,7 @@ The commands below use **Windows PowerShell**. Desktop supplies its own runtime;
 Get-Command dsh
 dsh --version
 
-$package = Join-Path $env:USERPROFILE 'Downloads\dsh-assist-0.2.2.tgz'
+$package = Join-Path $env:USERPROFILE 'Downloads\dsh-assist-0.3.0.tgz'
 dsh plugin --profile desktop add $package
 dsh plugin --profile desktop list
 ```
@@ -89,7 +89,7 @@ In the target conversation, ask:
 | Inspect this conversation | `assist_idle_status` |
 | Stop future triggers | `assist_idle_stop` |
 
-Quiet hours use the backend's local timezone. The backend must remain running; restarting it or unloading the session requires a fresh opt-in. Each trigger uses the selected model and incurs normal usage. Stop does not retract a turn already submitted.
+Quiet hours use the backend's local timezone. The backend must remain running; saved opt-ins resume when the original session is loaded after restart, after a fresh idle/cooldown wait. New sessions stay off. Stop also forgets the saved opt-in. Each trigger uses the selected model and incurs normal usage. Stop does not retract a turn already submitted.
 
 For a one-minute check, use `idleMinutes: 1`, `cooldownMinutes: 1`, `maxUnanswered: 1`, `quietStart: 0`, and `quietEnd: 0`. After the model finishes replying, stop typing. A trigger should occur after roughly 60–75 seconds; the response itself also depends on model latency. No second trigger should occur until you reply. Then call `assist_idle_stop`.
 
@@ -146,13 +146,13 @@ This README is bilingual. The detailed guides are currently in Simplified Chines
 
 ### 下载与安装
 
-在 [v0.2.2 发布页](https://github.com/a740411040/dsh-assist/releases/tag/v0.2.2) 下载：
+在 [v0.3.0 发布页](https://github.com/a740411040/dsh-assist/releases/tag/v0.3.0) 下载：
 
 | 文件 | 用途 |
 | --- | --- |
-| `dsh-assist-0.2.2.tgz` | 普通用户安装插件，无需解压 |
-| `dsh-assist-0.2.2-source.zip` | 完整开发源码 |
-| `dsh-assist-0.2.2-manifest.json` | SHA-256 校验清单 |
+| `dsh-assist-0.3.0.tgz` | 普通用户安装插件，无需解压 |
+| `dsh-assist-0.3.0-source.zip` | 完整开发源码 |
+| `dsh-assist-0.3.0-manifest.json` | SHA-256 校验清单 |
 
 以下为 **Windows PowerShell** 步骤。桌面端自带运行环境，安装插件无需另行安装系统 Node.js/npm。
 
@@ -164,7 +164,7 @@ This README is bilingual. The detailed guides are currently in Simplified Chines
 Get-Command dsh
 dsh --version
 
-$package = Join-Path $env:USERPROFILE 'Downloads\dsh-assist-0.2.2.tgz'
+$package = Join-Path $env:USERPROFILE 'Downloads\dsh-assist-0.3.0.tgz'
 dsh plugin --profile desktop add $package
 dsh plugin --profile desktop list
 ```
@@ -189,7 +189,7 @@ dsh plugin --profile desktop list
 | 查询当前会话 | `assist_idle_status` |
 | 停止未来触发 | `assist_idle_stop` |
 
-安静时段按后端本地时区计算。**应用后端必须保持运行**；重启或会话卸载后需要重新启用。每次触发产生正常模型用量，停止不会撤回已提交的回合。
+安静时段按后端本地时区计算。**应用后端必须保持运行**；已启用的原会话重新加载后会恢复，重新等待空闲与冷却；新会话仍需首次启用。停止会同时删除保存的启用状态。每次触发产生正常模型用量，停止不会撤回已提交的回合。
 
 一分钟体验可设为 `idleMinutes: 1`、`cooldownMinutes: 1`、`maxUnanswered: 1`、`quietStart: 0`、`quietEnd: 0`。等回复完成后停止输入，约 60–75 秒应触发一个模型回合，实际回复还取决于模型速度。你再次回复前不应有第二次触发；体验后调用 `assist_idle_stop`。
 

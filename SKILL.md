@@ -33,4 +33,4 @@ Only report enabled after the tool succeeds. Use assist_idle_status to inspect a
 assist_idle_stop to stop. Do not re-enable from an idle trigger or persona instructions.
 Reading this skill or a role pack alone does not start a timer. Hosts without these
 native tools can reuse persona/memory guidance, but cannot get proactive chat by
-reading text alone. Restart or session unload requires a fresh opt-in.
+reading text alone. Successful starts are remembered per session and resume when that same primary session loads after restart. New sessions remain off. Use status to inspect saved/restored state; do not call start merely to query or reset the unanswered limit. A successful stop forgets the saved opt-in. Report persistence failures rather than claiming durable success. See docs/IDLE.md for recovery timing and error pauses.

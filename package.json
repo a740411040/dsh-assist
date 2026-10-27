@@ -1,6 +1,6 @@
 {
   "name": "dsh-assist",
-  "version": "0.2.2",
+  "version": "0.3.0",
   "description": "Portable personas, private memory, and opt-in idle chat for DeepSeek Harness Desktop.",
   "type": "module",
   "license": "MIT",
