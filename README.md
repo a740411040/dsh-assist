@@ -4,7 +4,7 @@
 
 # dsh-assist
 
-**Portable personas. Persistent memory. Opt-in proactive chat.**
+**Your AI companion, with reusable personas, memory, and opt-in proactive chat.**
 
 A community plugin for **DeepSeek Harness Desktop**.
 
@@ -23,6 +23,14 @@ A community plugin for **DeepSeek Harness Desktop**.
 Turn a Harness conversation into a reusable AI companion: choose a persona, retain useful memories, and let it start a brief conversation after a period of inactivity.
 
 > **Preview release.** Targets Harness Desktop **0.2.1-rc.3**. Offline tests and Windows Desktop installation/loading checks pass; real-model proactive chat remains unverified. This is an independent community project, not an official DeepSeek product.
+
+### What is new in v0.3.0?
+
+**Enable once in a chat; resume after restart.** Saved opt-ins restore when you reopen the original session, with the same settings and unanswered-message count. New chats stay off; `assist_idle_stop` forgets the saved opt-in. The backend must be running.
+
+[Download the plugin](https://github.com/a740411040/dsh-assist/releases/tag/v0.3.0) · [Install and enable](docs/DESKTOP.md) · [Send trial feedback](https://github.com/a740411040/dsh-assist/issues/new?template=trial-feedback.md)
+
+We are looking for early testers on **Windows + Harness Desktop 0.2.1-rc.3**. Tell us where installation, activation, restart recovery, or stopping worked or failed. The [one-minute trial](docs/IDLE.md) helps collect reproducible results; model calls use your normal quota. No need to share private conversations or memory files.
 
 ### What it does
 
@@ -123,6 +131,14 @@ This README is bilingual. The detailed guides are currently in Simplified Chines
 为 Harness 聊天加入可复用的人设、持续保存的记忆，以及无人回复时主动聊一句的能力。
 
 > **当前为预发布版。** 面向 Harness Desktop **0.2.1-rc.3**，已通过离线验证和 Windows 桌面端安装、加载检查；真实模型主动聊天尚未实测。本项目是独立社区插件，并非 DeepSeek 官方产品。
+
+### v0.3.0 新增了什么？
+
+**在会话里开启一次，重启后继续陪聊。** 重新打开原会话后恢复已保存的设置和连续无人回应次数；新会话默认关闭，`assist_idle_stop` 会取消保存的启用状态。应用后端需要保持运行。
+
+[下载安装包](https://github.com/a740411040/dsh-assist/releases/tag/v0.3.0) · [安装与开启步骤](docs/DESKTOP.md) · [反馈试用结果](https://github.com/a740411040/dsh-assist/issues/new?template=trial-feedback.md)
+
+正在寻找使用 **Windows + Harness Desktop 0.2.1-rc.3** 的早期测试者：安装、首次开启、重启恢复、停止，在哪一步成功或遇到问题都可以反馈。[一分钟试用步骤](docs/IDLE.md)方便复现，模型调用会消耗正常用量；无需提供私人聊天和记忆文件。
 
 ### 功能概览
 
