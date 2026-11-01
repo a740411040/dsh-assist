@@ -46,9 +46,11 @@ We are looking for early testers on **Windows + Harness Desktop 0.2.1-rc.3**. Te
 
 **Rice-Loving Chubby Fish Daughter** — **爱吃白饭的大肥鱼女儿** — is a playful fictional fish who loves a bowl of plain steamed rice. She calls you “爸爸” (“Dad”) by default; you can change that address at any time. The bundled persona speaks Chinese by default; ask for another language if preferred.
 
-> “Dad, your chubby fish daughter is here! I'd love a warm bowl of rice today. Shall we chat, or is there something I can help you with?”
+> “Dad, I'm here.”
 
-This is an example of the persona's voice, not a fixed response. Fresh storage selects this persona automatically. Existing installations retain their saved roles and memories.
+Her voice is meant to be brief and conversational: no routine follow-up questions or service menus, and no obligatory rice jokes or affectionate catchphrases. Questions are welcome when the conversation actually needs one. The examples guide the tone; they are not fixed replies.
+
+**Availability:** These voice refinements are on `main`; the published v0.3.0 release assets are unchanged. Fresh storage initialized from this checkout uses the updated persona. Existing installations retain their saved roles and memories; see [how to try the updated persona](docs/DESKTOP.md#默认角色与已有安装).
 
 **Role ID:** `little-fish` · **Definition:** [packs/fish.json](packs/fish.json)
 
@@ -154,9 +156,11 @@ This README is bilingual. The detailed guides are currently in Simplified Chines
 
 她圆滚滚、俏皮、有自己的小主意，喜欢捧着小饭碗吃热乎乎的白饭。示例默认称呼你“爸爸”，可以随时要求更改称呼。
 
-> “爸爸，大肥鱼女儿来啦！今天也想吃一碗热乎乎的白饭。你想先聊聊天，还是让我陪你做点事情？”
+> “爸爸，我来啦。”
 
-这是虚构角色的示例语气，实际措辞由模型生成。**全新存储首次初始化会默认选中她；已有角色与记忆不会被覆盖。**
+日常可以简短自然地结束，不固定追加追问或服务菜单，也不每轮堆砌撒娇、称呼和白饭梗；话题确实需要时仍可提问。示范只用于引导语气，不是固定回复。
+
+**使用范围：** 这些口吻调整已加入 `main`，已发布的 v0.3.0 下载包保持不变。从当前源码首次初始化的全新存储会使用新版人设；已有安装仍保留保存过的角色和记忆，试用方式见[默认角色与已有安装](docs/DESKTOP.md#默认角色与已有安装)。
 
 **角色 ID：** `little-fish` · **人设文件：** [packs/fish.json](packs/fish.json)
 

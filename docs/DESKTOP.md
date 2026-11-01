@@ -69,21 +69,26 @@ dsh plugin --profile desktop list
 她默认称呼你“爸爸”，可以随时要求改称呼。默认人设见 [fish.json](../packs/fish.json)。
 安装本身不会自动开启主动聊天；需要在目标聊天明确启用。
 
+当前 `main` 的默认口吻已减少固定追问、服务菜单和模板撒娇；日常允许一句话自然结束。
+这些配置调整尚未加入已发布的 v0.3.0 下载包。要试用最新人设，下载
+[main 分支源码 ZIP](https://github.com/a740411040/dsh-assist/archive/refs/heads/main.zip) 并解压。
+
 旧版本已初始化的存储不会被新包重置，因此旧 little-fish 可能仍保留原设定。
-若希望保留旧角色和记忆，同时使用新示例，可在解压源码的根目录操作：
+下面的操作会新增一个角色供试用，旧角色和记忆留在原处，新角色不继承旧记忆。
+在刚下载的 main 源码根目录执行：
 
 ```powershell
 New-Item -ItemType Directory -Path .work -Force
 $role = Get-Content -LiteralPath .\packs\fish.json -Raw -Encoding utf8 | ConvertFrom-Json
-$role.id = 'fat-fish-daughter'
-$role | ConvertTo-Json -Depth 5 | Set-Content -LiteralPath .\.work\fat-fish-daughter.json -Encoding utf8
-node .\src\cli.js import .\.work\fat-fish-daughter.json --apply
-node .\src\cli.js default fat-fish-daughter
+$role.id = 'little-fish-natural'
+$role | ConvertTo-Json -Depth 5 | Set-Content -LiteralPath .\.work\little-fish-natural.json -Encoding utf8
+node .\src\cli.js import .\.work\little-fish-natural.json --apply
+node .\src\cli.js default little-fish-natural
 ```
 
 此可选迁移需要 Node.js 20.18+，并且 CLI 与桌面端须使用相同的 DSH_ASSIST_HOME/DSH_HOME。
 先按 [存储说明](DESIGN.md)备份；不要删除 state.json。
-随后在已有聊天明确要求 assist_use 切换到 fat-fish-daughter；新角色不继承旧角色记忆。
+随后在已有聊天明确要求 assist_use 切换到 little-fish-natural；新角色不继承旧角色记忆。
 若该 ID 已存在，选择另一个新 ID，导入不会覆盖现有角色。
 
 ## 4. 在聊天中启用角色和主动聊天

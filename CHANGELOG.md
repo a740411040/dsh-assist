@@ -1,5 +1,15 @@
 # Changelog
 
+## Unreleased
+
+- Refine the default fish daughter's voice: natural endings, context-driven questions, fewer stock affectionate phrases, and short dialogue examples.
+- Keep memory references grounded in actual conversations and respect unanswered idle messages.
+- Document how existing users can try the updated persona without replacing saved roles or memories. Published v0.3.0 assets are unchanged.
+
+- 调整默认小鱼口吻：自然收尾、按话题需要提问，减少模板撒娇，并加入简短对话示范。
+- 记忆引用以实际对话为依据，主动搭话不催促未回复的用户。
+- 说明已有用户如何新增角色试用，保留原角色和记忆；已发布的 v0.3.0 下载包不变。
+
 ## 0.3.0 — 2026-10-27
 
 - Remember each explicitly enabled idle-chat session and restore it when its live primary agent is loaded after restart.
