@@ -3,21 +3,21 @@
 适用：**DeepSeek Harness 官方桌面应用 0.2.1-rc.3**。dsh-assist 是独立社区插件，
 不是普通 DeepSeek 网页聊天的浏览器扩展，也不是一个新的桌面客户端。
 
-当前为 v0.3.0 预发布版：离线测试与 Windows 桌面端安装、加载检查通过；真实模型主动聊天尚未验收。
+当前为 v0.3.1 预发布版：离线测试通过。Windows 桌面端安装、加载已在 v0.3.0 验证；v0.3.1 沿用相同运行时代码，本次未重新安装发行包到桌面端。真实模型主动聊天及新版口吻尚未验收。
 其他 Harness 版本不要跳过兼容性检查；请先等待适配或在独立测试环境验证。
 
 ## 1. 下载安装包
 
-打开 [v0.3.0 Release](https://github.com/a740411040/dsh-assist/releases/tag/v0.3.0)，
-在 Assets 下载 `dsh-assist-0.3.0.tgz`。这个文件直接安装，**不需要解压 TGZ**。
-可同时下载 `dsh-assist-0.3.0-manifest.json`，用 PowerShell 核对 TGZ 的 SHA-256：
+打开 [v0.3.1 Release](https://github.com/a740411040/dsh-assist/releases/tag/v0.3.1)，
+在 Assets 下载 `dsh-assist-0.3.1.tgz`。这个文件直接安装，**不需要解压 TGZ**。
+可同时下载 `dsh-assist-0.3.1-manifest.json`，用 PowerShell 核对 TGZ 的 SHA-256：
 
 ```powershell
-Get-FileHash -Algorithm SHA256 -LiteralPath "$env:USERPROFILE\Downloads\dsh-assist-0.3.0.tgz"
+Get-FileHash -Algorithm SHA256 -LiteralPath "$env:USERPROFILE\Downloads\dsh-assist-0.3.1.tgz"
 ```
 
 结果应与清单中同名文件的 sha256 一致。下载位置不是 Downloads 时请修改路径。
-`dsh-assist-0.3.0-source.zip` 是完整开发源码；不需要开发时只下载 TGZ 即可。
+`dsh-assist-0.3.1-source.zip` 是完整开发源码；不需要开发时只下载 TGZ 即可。
 
 ## 2. 准备桌面端自己的 dsh 命令
 
@@ -38,7 +38,7 @@ dsh --version
 ## 3. 安装并重新打开应用
 
 ```powershell
-$package = Join-Path $env:USERPROFILE 'Downloads\dsh-assist-0.3.0.tgz'
+$package = Join-Path $env:USERPROFILE 'Downloads\dsh-assist-0.3.1.tgz'
 dsh plugin --profile desktop add $package
 dsh plugin --profile desktop list
 ```
@@ -69,13 +69,13 @@ dsh plugin --profile desktop list
 她默认称呼你“爸爸”，可以随时要求改称呼。默认人设见 [fish.json](../packs/fish.json)。
 安装本身不会自动开启主动聊天；需要在目标聊天明确启用。
 
-当前 `main` 的默认口吻已减少固定追问、服务菜单和模板撒娇；日常允许一句话自然结束。
-这些配置调整尚未加入已发布的 v0.3.0 下载包。要试用最新人设，下载
-[main 分支源码 ZIP](https://github.com/a740411040/dsh-assist/archive/refs/heads/main.zip) 并解压。
+v0.3.1 安装包与源码包都已包含新版口吻：减少固定追问、服务菜单和模板撒娇，日常允许一句话自然结束。
+全新存储首次初始化会自动使用；已有安装若要新增一个角色试用，请下载
+[v0.3.1 源码 ZIP](https://github.com/a740411040/dsh-assist/releases/download/v0.3.1/dsh-assist-0.3.1-source.zip) 并解压。
 
 旧版本已初始化的存储不会被新包重置，因此旧 little-fish 可能仍保留原设定。
 下面的操作会新增一个角色供试用，旧角色和记忆留在原处，新角色不继承旧记忆。
-在刚下载的 main 源码根目录执行：
+在刚下载的 v0.3.1 源码根目录执行：
 
 ```powershell
 New-Item -ItemType Directory -Path .work -Force

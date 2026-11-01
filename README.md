@@ -8,11 +8,11 @@
 
 A community plugin for **DeepSeek Harness Desktop**.
 
-[![Version](https://img.shields.io/badge/version-0.3.0--preview-f59e0b)](https://github.com/a740411040/dsh-assist/releases/tag/v0.3.0)
+[![Version](https://img.shields.io/badge/version-0.3.1--preview-f59e0b)](https://github.com/a740411040/dsh-assist/releases/tag/v0.3.1)
 [![License: MIT](https://img.shields.io/badge/license-MIT-2563eb)](LICENSE)
 [![Harness target](https://img.shields.io/badge/Harness-0.2.1--rc.3-475569)](docs/VERIFICATION.md)
 
-[English](#english) · [简体中文](#简体中文) · [Download](https://github.com/a740411040/dsh-assist/releases/tag/v0.3.0) · [Documentation](#documentation)
+[English](#english) · [简体中文](#简体中文) · [Download](https://github.com/a740411040/dsh-assist/releases/tag/v0.3.1) · [Documentation](#documentation)
 
 </div>
 
@@ -22,13 +22,13 @@ A community plugin for **DeepSeek Harness Desktop**.
 
 Turn a Harness conversation into a reusable AI companion: choose a persona, retain useful memories, and let it start a brief conversation after a period of inactivity.
 
-> **Preview release.** Targets Harness Desktop **0.2.1-rc.3**. Offline tests and Windows Desktop installation/loading checks pass; real-model proactive chat remains unverified. This is an independent community project, not an official DeepSeek product.
+> **Preview release.** Targets Harness Desktop **0.2.1-rc.3**. Offline tests pass. Windows Desktop installation/loading was verified for v0.3.0; v0.3.1 keeps the same runtime. Real-model proactive chat and the revised voice remain unverified. This is an independent community project, not an official DeepSeek product.
 
-### What is new in v0.3.0?
+### What is new in v0.3.1?
 
-**Enable once in a chat; resume after restart.** Saved opt-ins restore when you reopen the original session, with the same settings and unanswered-message count. New chats stay off; `assist_idle_stop` forgets the saved opt-in. The backend must be running.
+**A more natural voice for the default fish daughter.** Replies can end naturally, without a routine follow-up question or service menu. The persona uses fewer stock affectionate phrases and includes short dialogue examples. Opt-in idle chat and restart recovery from v0.3.0 remain available.
 
-[Download the plugin](https://github.com/a740411040/dsh-assist/releases/tag/v0.3.0) · [Install and enable](docs/DESKTOP.md) · [Send trial feedback](https://github.com/a740411040/dsh-assist/issues/new?template=trial-feedback.md)
+[Download the plugin](https://github.com/a740411040/dsh-assist/releases/tag/v0.3.1) · [Install and enable](docs/DESKTOP.md) · [Send trial feedback](https://github.com/a740411040/dsh-assist/issues/new?template=trial-feedback.md)
 
 We are looking for early testers on **Windows + Harness Desktop 0.2.1-rc.3**. Tell us where installation, activation, restart recovery, or stopping worked or failed. The [one-minute trial](docs/IDLE.md) helps collect reproducible results; model calls use your normal quota. No need to share private conversations or memory files.
 
@@ -50,19 +50,19 @@ We are looking for early testers on **Windows + Harness Desktop 0.2.1-rc.3**. Te
 
 Her voice is meant to be brief and conversational: no routine follow-up questions or service menus, and no obligatory rice jokes or affectionate catchphrases. Questions are welcome when the conversation actually needs one. The examples guide the tone; they are not fixed replies.
 
-**Availability:** These voice refinements are on `main`; the published v0.3.0 release assets are unchanged. Fresh storage initialized from this checkout uses the updated persona. Existing installations retain their saved roles and memories; see [how to try the updated persona](docs/DESKTOP.md#默认角色与已有安装).
+**Availability:** The v0.3.1 downloads include the updated persona, selected automatically when initializing fresh storage. Existing installations retain their saved roles and memories; see [how to try the updated persona](docs/DESKTOP.md#默认角色与已有安装).
 
 **Role ID:** `little-fish` · **Definition:** [packs/fish.json](packs/fish.json)
 
 ### Download
 
-Get the files from the [v0.3.0 release](https://github.com/a740411040/dsh-assist/releases/tag/v0.3.0).
+Get the files from the [v0.3.1 release](https://github.com/a740411040/dsh-assist/releases/tag/v0.3.1).
 
 | File | Use |
 | --- | --- |
-| [dsh-assist-0.3.0.tgz](https://github.com/a740411040/dsh-assist/releases/download/v0.3.0/dsh-assist-0.3.0.tgz) | Desktop plugin installer — do not extract |
-| [dsh-assist-0.3.0-source.zip](https://github.com/a740411040/dsh-assist/releases/download/v0.3.0/dsh-assist-0.3.0-source.zip) | Complete source for development |
-| [SHA-256 manifest](https://github.com/a740411040/dsh-assist/releases/download/v0.3.0/dsh-assist-0.3.0-manifest.json) | Verify downloaded artifacts |
+| [dsh-assist-0.3.1.tgz](https://github.com/a740411040/dsh-assist/releases/download/v0.3.1/dsh-assist-0.3.1.tgz) | Desktop plugin installer — do not extract |
+| [dsh-assist-0.3.1-source.zip](https://github.com/a740411040/dsh-assist/releases/download/v0.3.1/dsh-assist-0.3.1-source.zip) | Complete source for development |
+| [SHA-256 manifest](https://github.com/a740411040/dsh-assist/releases/download/v0.3.1/dsh-assist-0.3.1-manifest.json) | Verify downloaded artifacts |
 
 ### Installation
 
@@ -76,7 +76,7 @@ The commands below use **Windows PowerShell**. Desktop supplies its own runtime;
 Get-Command dsh
 dsh --version
 
-$package = Join-Path $env:USERPROFILE 'Downloads\dsh-assist-0.3.0.tgz'
+$package = Join-Path $env:USERPROFILE 'Downloads\dsh-assist-0.3.1.tgz'
 dsh plugin --profile desktop add $package
 dsh plugin --profile desktop list
 ```
@@ -132,13 +132,13 @@ This README is bilingual. The detailed guides are currently in Simplified Chines
 
 为 Harness 聊天加入可复用的人设、持续保存的记忆，以及无人回复时主动聊一句的能力。
 
-> **当前为预发布版。** 面向 Harness Desktop **0.2.1-rc.3**，已通过离线验证和 Windows 桌面端安装、加载检查；真实模型主动聊天尚未实测。本项目是独立社区插件，并非 DeepSeek 官方产品。
+> **当前为预发布版。** 面向 Harness Desktop **0.2.1-rc.3**，离线验证通过；Windows 桌面端安装、加载已在 v0.3.0 验证，v0.3.1 沿用相同运行时代码。真实模型主动聊天及新版口吻尚未实测。本项目是独立社区插件，并非 DeepSeek 官方产品。
 
-### v0.3.0 新增了什么？
+### v0.3.1 新增了什么？
 
-**在会话里开启一次，重启后继续陪聊。** 重新打开原会话后恢复已保存的设置和连续无人回应次数；新会话默认关闭，`assist_idle_stop` 会取消保存的启用状态。应用后端需要保持运行。
+**默认小鱼说话更自然。** 允许一句话自然结束，不固定追加反问或服务菜单，减少模板撒娇，并加入简短口吻示范。继续保留 v0.3.0 的主动聊天与重启恢复功能，仍需先在目标会话明确开启。
 
-[下载安装包](https://github.com/a740411040/dsh-assist/releases/tag/v0.3.0) · [安装与开启步骤](docs/DESKTOP.md) · [反馈试用结果](https://github.com/a740411040/dsh-assist/issues/new?template=trial-feedback.md)
+[下载安装包](https://github.com/a740411040/dsh-assist/releases/tag/v0.3.1) · [安装与开启步骤](docs/DESKTOP.md) · [反馈试用结果](https://github.com/a740411040/dsh-assist/issues/new?template=trial-feedback.md)
 
 正在寻找使用 **Windows + Harness Desktop 0.2.1-rc.3** 的早期测试者：安装、首次开启、重启恢复、停止，在哪一步成功或遇到问题都可以反馈。[一分钟试用步骤](docs/IDLE.md)方便复现，模型调用会消耗正常用量；无需提供私人聊天和记忆文件。
 
@@ -160,19 +160,19 @@ This README is bilingual. The detailed guides are currently in Simplified Chines
 
 日常可以简短自然地结束，不固定追加追问或服务菜单，也不每轮堆砌撒娇、称呼和白饭梗；话题确实需要时仍可提问。示范只用于引导语气，不是固定回复。
 
-**使用范围：** 这些口吻调整已加入 `main`，已发布的 v0.3.0 下载包保持不变。从当前源码首次初始化的全新存储会使用新版人设；已有安装仍保留保存过的角色和记忆，试用方式见[默认角色与已有安装](docs/DESKTOP.md#默认角色与已有安装)。
+**使用范围：** v0.3.1 下载包已包含新版人设，全新存储首次初始化时自动使用。已有安装仍保留保存过的角色和记忆，试用方式见[默认角色与已有安装](docs/DESKTOP.md#默认角色与已有安装)。
 
 **角色 ID：** `little-fish` · **人设文件：** [packs/fish.json](packs/fish.json)
 
 ### 下载与安装
 
-在 [v0.3.0 发布页](https://github.com/a740411040/dsh-assist/releases/tag/v0.3.0) 下载：
+在 [v0.3.1 发布页](https://github.com/a740411040/dsh-assist/releases/tag/v0.3.1) 下载：
 
 | 文件 | 用途 |
 | --- | --- |
-| `dsh-assist-0.3.0.tgz` | 普通用户安装插件，无需解压 |
-| `dsh-assist-0.3.0-source.zip` | 完整开发源码 |
-| `dsh-assist-0.3.0-manifest.json` | SHA-256 校验清单 |
+| `dsh-assist-0.3.1.tgz` | 普通用户安装插件，无需解压 |
+| `dsh-assist-0.3.1-source.zip` | 完整开发源码 |
+| `dsh-assist-0.3.1-manifest.json` | SHA-256 校验清单 |
 
 以下为 **Windows PowerShell** 步骤。桌面端自带运行环境，安装插件无需另行安装系统 Node.js/npm。
 
@@ -184,7 +184,7 @@ This README is bilingual. The detailed guides are currently in Simplified Chines
 Get-Command dsh
 dsh --version
 
-$package = Join-Path $env:USERPROFILE 'Downloads\dsh-assist-0.3.0.tgz'
+$package = Join-Path $env:USERPROFILE 'Downloads\dsh-assist-0.3.1.tgz'
 dsh plugin --profile desktop add $package
 dsh plugin --profile desktop list
 ```
